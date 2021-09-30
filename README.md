@@ -5,8 +5,8 @@ The project is based on Prophet separated into three main python files: `parking
 ### Parking Availability 
 
 The `parking4cast.py` script accepts a CSV (comma-delimited file) with columns: 
-  - TimeStamp (rennamed as `ds`) (with format yyyy-mm-dd hh:mm:ss);
-  - AvailableSpots (rennamed as `y`) - this can be changed and use Occupancy as the `y` column;
+  - TimeStamp (renamed as `ds`) (with format yyyy-mm-dd hh:mm:ss);
+  - AvailableSpots (renamed as `y`) - this can be changed and use Occupancy as the `y` column;
   - And 6 more columns (e.g., OccupiedSpotsNo, OccupiedDuration, AvailabilityDuration, Occupancy, OccupiedDurationPerSpot and OccupiedDurationPercentage)
 
 This file works with a pre-defined 10 periods and a frequency of 15 minutes.
