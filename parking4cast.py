@@ -19,12 +19,12 @@ df.dtypes
 
 """ Prophet"""
 
-#df = df.drop(columns=['y','OccupiedSpotsNo','OccupiedDuration','AvailabilityDuration','OccupiedDurationPerSpot','OccupiedDurationPercentage','Unnamed: 8','Unnamed: 9'])
 df = df.drop(columns=['Unnamed: 8','Unnamed: 9'])
 
 import matplotlib.pyplot as plt
 fig = plt.figure(facecolor='w', figsize=(20, 6))
 plt.plot(df.ds, df.Occupancy)
+fig.savefig("Current_Occupancy.png")
 
 #currently uses the available spots for prediction
 #uncomment the next lines to use occupancy as the predicted value
@@ -64,17 +64,6 @@ df_cv.head()
 from prophet.plot import plot_cross_validation_metric
 fig3 = plot_cross_validation_metric(df_cv, metric='mape')
 
-m2 = Prophet(changepoint_prior_scale=0.01).fit(df)
-future2 = m2.make_future_dataframe(periods=100, freq="15min")
-print(future2.tail())
-
-fcst = m2.predict(future2)
-print(fcst[['ds','trend', 'yhat', 'yhat_lower', 'yhat_upper']].tail())
-
-fig = m2.plot(fcst)
-
-
-fig = m2.plot_components(fcst)
 
 from prophet.plot import plot_plotly, plot_components_plotly
 
