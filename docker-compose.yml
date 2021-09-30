@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  urban4cast:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - .:/code/
+    command: python urban4cast.py
