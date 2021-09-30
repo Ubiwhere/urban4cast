@@ -5,19 +5,19 @@
 import pandas as pd
 from prophet import Prophet
 
-"""# Read data and check elements"""
+""" Read data and check elements"""
 
 df = pd.read_csv('SmartSantander_processed_dataset.csv', delimiter=';',decimal=',')
 
 df.head()
 
-"""## Define column DS as datetime"""
+""" Define column DS as datetime"""
 
 df['ds']= pd.to_datetime(df['ds'])
 
 df.dtypes
 
-"""# Prophet"""
+""" Prophet"""
 
 #df = df.drop(columns=['y','OccupiedSpotsNo','OccupiedDuration','AvailabilityDuration','OccupiedDurationPerSpot','OccupiedDurationPercentage','Unnamed: 8','Unnamed: 9'])
 df = df.drop(columns=['Unnamed: 8','Unnamed: 9'])
@@ -61,36 +61,6 @@ df_p.head(5)
 
 df_cv.head()
 
-'''
-import itertools
-import numpy as np
-import pandas as pd
-
-param_grid = {  
-    'changepoint_prior_scale': [0.001, 0.01, 0.1, 0.5],
-    'seasonality_prior_scale': [0.01, 0.1, 1.0, 10.0],
-}
-
-# Generate all combinations of parameters
-all_params = [dict(zip(param_grid.keys(), v)) for v in itertools.product(*param_grid.values())]
-rmses = []  # Store the RMSEs for each params here
-
-# Use cross validation to evaluate all parameters
-for params in all_params:
-    m = Prophet(**params).fit(df)  # Fit model with given params
-    df_cv = cross_validation(m, horizon='5 days', parallel="processes")
-    df_p = performance_metrics(df_cv, rolling_window=1)
-    rmses.append(df_p['rmse'].values[0])
-
-# Find the best parameters
-tuning_results = pd.DataFrame(all_params)
-tuning_results['rmse'] = rmses
-print(tuning_results)
-'''
-
-#best_params = all_params[np.argmin(rmses)]
-#print(best_params)
-
 from prophet.plot import plot_cross_validation_metric
 fig3 = plot_cross_validation_metric(df_cv, metric='mape')
 
@@ -103,7 +73,7 @@ print(fcst[['ds','trend', 'yhat', 'yhat_lower', 'yhat_upper']].tail())
 
 fig = m2.plot(fcst)
 
-fcst
+
 fig = m2.plot_components(fcst)
 
 from prophet.plot import plot_plotly, plot_components_plotly
