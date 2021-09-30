@@ -4,6 +4,7 @@ The project is based on Prophet separated into three main python files: `parking
 
 ### Parking Availability 
 
+
 The `parking4cast.py` script accepts a CSV (comma-delimited file) with columns: 
   - TimeStamp (renamed as `ds`) (with format yyyy-mm-dd hh:mm:ss);
   - AvailableSpots (renamed as `y`) - this can be changed and use Occupancy as the `y` column;
@@ -20,7 +21,7 @@ The `parking4cast_bystreet.py` script accepts a CSV (comma-delimited file) with 
 After removing all the duplicated results and resorting to GeoPandas, the script should find all the street names of each sensor and add this information to a dictionary. Then, apply the dictionary to the initial dataframe and create a second dataframe by defining the **street name**.
 This file works with a pre-defined 10 periods and a frequency of 10 minutes.
 
-
+**When running Prophet, there needs to be two defined columns, `ds` and `y`.**
 
 
 # Using the docker image
