@@ -4,7 +4,6 @@ The project is based on Prophet separated into three main python files: `parking
 
 ### Parking Availability 
 
-
 The `parking4cast.py` script accepts a CSV (comma-delimited file) with columns: 
   - TimeStamp (renamed as `ds`) (with format yyyy-mm-dd hh:mm:ss);
   - AvailableSpots (renamed as `y`) - this can be changed and use Occupancy as the `y` column;
@@ -22,6 +21,18 @@ After removing all the duplicated results and resorting to GeoPandas, the script
 This file works with a pre-defined 10 periods and a frequency of 10 minutes.
 
 **When running Prophet, there needs to be two defined columns, `ds` and `y`.**
+
+### Traffic Flow
+
+This solution is based on historical data obtained on the open-source data from [Paris Data](#https://parisdata.opendatasoft.com/explore/dataset/comptages-routiers-permanents/).
+
+The `trafficflow.py` script accepts a CSV (comma-delimited file) with columns: 
+  - Time (rennamed as `ds`) (with format yyyy-mm-dd hh:mm:ss);
+  - "Etat_traffic" (renamed as `y`)
+  - And 3 more columns (q - Throughput (number of vehicles counted during the hour), k - Occupancy rate (as a percentage of the time the measuring station is occupied by vehicles per hour) and etat_barre - Open state or not (barred, unknown or invalid) to the circulation)
+
+Similarly to `parking4cast_bystreet.py`, it can also be defined by road by adding a sixth column which defines the label of the track observed (libelle)
+This file works with a pre-defined 10 periods and a frequency of 2 hours.
 
 
 # Using the docker image
