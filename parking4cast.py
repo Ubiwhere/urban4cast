@@ -32,28 +32,27 @@ plt.plot(df.ds, df.Occupancy)
 #df = df.rename(columns={"Occupancy": "y"})
 
 m = Prophet(changepoint_prior_scale=0.01)
-#m.add_regressor('OccupiedSpotsNo')
-#m.add_regressor('OccupiedDuration')
-#m.add_regressor('AvailabilityDuration')
-#m.add_regressor('Occupancy')
-#m.add_regressor('OccupiedDurationPerSpot')
-#m.add_regressor('OccupiedDurationPercentage')
+m.add_regressor('OccupiedSpotsNo')
+m.add_regressor('OccupiedDuration')
+m.add_regressor('AvailabilityDuration')
+m.add_regressor('Occupancy')
+m.add_regressor('OccupiedDurationPerSpot')
+m.add_regressor('OccupiedDurationPercentage')
 m.fit(df)
 
 future = m.make_future_dataframe(periods=100, freq="15min")
 print(future.tail())
 
-#future['Occupancy'] = future['ds'].apply('Occupancy') 
-
+future = future.merge(df, on='ds')
 forecast = m.predict(future)
 print(forecast[['ds','trend', 'yhat', 'yhat_lower', 'yhat_upper']].tail())
 
 fig1 = m.plot(forecast)
-#fig1.savefig("forecast.png")
+fig1.savefig("forecast.png")
 
 
 fig2 = m.plot_components(forecast)
-#fig2.savefig("forecast2.png")
+fig2.savefig("forecast_component.png")
 
 from prophet.diagnostics import cross_validation, performance_metrics
 df_cv = cross_validation(m, horizon='1 days')
