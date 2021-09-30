@@ -29,10 +29,10 @@ df3_single_locality = df2
 df3_single_locality = df3_single_locality.drop_duplicates(subset=['latitude','longitude','id'])
 
 #define second dataframe as a geodataframe
-import geopandas
+#import geopandas
 
-gdf = geopandas.GeoDataFrame(
-    df3_single_locality, geometry=geopandas.points_from_xy(df3_single_locality.longitude, df3_single_locality.latitude))
+#gdf = geopandas.GeoDataFrame(
+#    df3_single_locality, geometry=geopandas.points_from_xy(df3_single_locality.longitude, df3_single_locality.latitude))
 
 '''
 #Needs a .mapbox_token file to create an interactive plot over the map
@@ -48,19 +48,19 @@ from geopy.geocoders import Nominatim
 # initialize Nominatim API 
 geolocator = Nominatim(user_agent="geoapiUrban4Cast")
 
-gdf.id = gdf.id.astype(int)
-gdf.dtypes
+df3_single_locality.id = df3_single_locality.id.astype(int)
+print(df3_single_locality.dtypes)
 
-gdf = gdf.drop_duplicates('id', keep=False)
+df3_single_locality = df3_single_locality.drop_duplicates('id', keep=False)
 
-gdf
+print(df3_single_locality.head())
 
-all_sensors = gdf['id'].unique()
+all_sensors = df3_single_locality['id'].unique()
 len(all_sensors)
 
 dict_location = {}
 
-for index, row in gdf.iterrows():
+for index, row in df3_single_locality.iterrows():
       # Latitude & Longitude input
       Latitude = row['latitude']
       Longitude = row['longitude']
