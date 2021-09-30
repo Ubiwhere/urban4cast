@@ -28,13 +28,14 @@ df3_single_locality = df2
 #drop all the duplicated entries regarding Latitute, Longitude and the sensor ID
 df3_single_locality = df3_single_locality.drop_duplicates(subset=['latitude','longitude','id'])
 
-#define second dataframe as a geodataframe
-#import geopandas
-
-#gdf = geopandas.GeoDataFrame(
-#    df3_single_locality, geometry=geopandas.points_from_xy(df3_single_locality.longitude, df3_single_locality.latitude))
-
 '''
+#define second dataframe as a geodataframe
+import geopandas
+
+gdf = geopandas.GeoDataFrame(
+    df3_single_locality, geometry=geopandas.points_from_xy(df3_single_locality.longitude, df3_single_locality.latitude))
+
+
 #Needs a .mapbox_token file to create an interactive plot over the map
 import plotly.express as px
 px.set_mapbox_access_token(open(".mapbox_token").read())
@@ -43,7 +44,7 @@ fig = px.scatter_mapbox(gdf, lat=gdf.geometry.y, lon=gdf.geometry.x, hover_name=
 fig.show()
 '''
 
-'''#Define street names with Latitude and Longitude for each different sensor'''
+'''Define street names with Latitude and Longitude for each different sensor'''
 from geopy.geocoders import Nominatim
 # initialize Nominatim API 
 geolocator = Nominatim(user_agent="geoapiUrban4Cast")
@@ -77,7 +78,7 @@ for index, row in df3_single_locality.iterrows():
  
 dict_location.values()
 
-"""# Add information of streets name to the dataframe"""
+""" Add information of streets name to the dataframe"""
 df2.id = df2.id.astype(int)
 df2.value = df2.value.astype(float)
 df2.value = df2.value.astype(int)
@@ -90,9 +91,9 @@ xx = df2[df2['street'] == 'Calle de Hernán Cortés']
 
 xx = xx.rename(columns={"value": "y", "time":"ds"})
 
-"""# Prophet"""
+""" Prophet"""
 
-m = Prophet()
+m = Prophet(changepoint_prior_scale=0.01)
 m.fit(xx)
 
 future = m.make_future_dataframe(periods=10, freq="10min")
@@ -113,17 +114,9 @@ df_p = performance_metrics(df_cv)
 df_p.head(5)
 
 
-'''
-m2 = Prophet(changepoint_prior_scale=0.01).fit(df)
-future2 = m2.make_future_dataframe(periods=100, freq='H')
-fcst = m2.predict(future2)
-fig = m2.plot(fcst)
-
-fig = m2.plot_components(fcst)
-
 from prophet.plot import plot_plotly, plot_components_plotly
 
 plot_plotly(m, forecast)
 
 plot_components_plotly(m, forecast)
-'''
+
