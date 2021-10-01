@@ -1,6 +1,6 @@
 # Urban4Cast
 ## Forecasting Parking Availability and Traffic Flow
-The project is based on Prophet separated into three main python files: `parking4cast.py`, `parking4cast_bystreet.py` and `trafficflow.py`.
+This project is based on Prophet. It is separated into three main python files: `parking4cast.py`, `parking4cast_bystreet.py` and `trafficflow.py`.
 
 ### Parking Availability 
 
