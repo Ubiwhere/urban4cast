@@ -7,7 +7,7 @@ from prophet import Prophet
 """# Spatial Data"""
 
 #read  file 
-df2 = pd.read_csv('santander.csv', delimiter=';',decimal=',')
+df2 = pd.read_csv('path/to/csv/file', delimiter=';',decimal=',')
 
 df2.head()
 
