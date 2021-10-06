@@ -5,7 +5,7 @@
 import pandas as pd
 from prophet import Prophet
 
-df = pd.read_csv('trafic_capteurs_2019_W51_20191229_20200101.csv', delimiter=';')
+df = pd.read_csv('path/to/csv/file', delimiter=';')
 
 df = df.dropna(subset=['q','k'])
 
