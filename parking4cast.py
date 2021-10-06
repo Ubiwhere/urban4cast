@@ -7,7 +7,7 @@ from prophet import Prophet
 
 """ Read data and check elements"""
 
-df = pd.read_csv('SmartSantander_processed_dataset.csv', delimiter=';',decimal=',')
+df = pd.read_csv('path/to/csv/file', delimiter=';',decimal=',')
 
 df.head()
 
