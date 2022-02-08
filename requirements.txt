@@ -84,5 +84,5 @@ tenacity==8.0.1
     # via plotly
 tqdm==4.62.3
     # via prophet
-ujson==4.2.0
+ujson==5.1.0
     # via cmdstanpy
